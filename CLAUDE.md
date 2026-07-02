@@ -22,8 +22,11 @@ and the in-app updater has a reachable feed.
 1. **No product source code, ever.** Only distribution artifacts (in Releases, not
    in the git tree) plus repo docs (README, CHANGELOG, this file, `docs/`). If a
    change would add app source, it belongs in `term-wright-desktop`, not here.
-2. **No binaries committed to the git tree.** Installers/updater packages live as
-   **release assets**, never as files in the repo. The tree stays text-only.
+2. **No build artifacts in the git tree.** Installers and updater packages
+   (`*.dmg`, `*.app.tar.gz`, `*.sig`, `latest.json`, …) live as **release assets**,
+   never as files in the repo (they're `.gitignore`d). Small **brand/doc images**
+   used by the README (the app icon, logo) are the only permitted binaries, and live
+   under `assets/`.
 3. **Releases are immutable once published.** Never rewrite or delete a published
    release's assets; ship a new version instead. (Re-generating a bad draft before
    publishing is fine.)
@@ -79,6 +82,8 @@ term-wright-releases/
 ├── CLAUDE.md              this file
 ├── CHANGELOG.md           running release history (Keep a Changelog)
 ├── LICENSE.md             proprietary notice (no OSS license)
+├── assets/                brand images used by the README (app icon, logo) — the
+│                          only binaries allowed in the tree
 ├── docs/
 │   └── RELEASE-PROCESS.md how artifacts are published here + the updater feed
 └── .github/
