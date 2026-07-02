@@ -6,11 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_Changes landing in the next release accumulate here._
-
-## [0.1.0] — 2026-07-02
-
-First public build — an early **beta** of Termwright for macOS.
+Everything below is built and ready; it ships in the first public release once
+feature gating (free vs. paid tiers) is in place.
 
 ### Added
 - Signed (Apple Developer ID) and **notarized** universal macOS build
@@ -27,7 +24,7 @@ First public build — an early **beta** of Termwright for macOS.
 - Deep theming: ~50 themes, per-pane transparency, fonts, and customization.
 
 ### Known issues
-- This is an early beta (`0.1.0`); expect rough edges. Feedback welcome.
+- Early beta; expect rough edges. Feedback welcome.
 
-[Unreleased]: https://github.com/Termwright/term-wright-releases/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Termwright/term-wright-releases/releases/tag/v0.1.0
+> **Note:** a `v0.1.0` build was briefly published on 2026-07-02 and retracted the
+> same day (it predated feature gating). No users were affected.
