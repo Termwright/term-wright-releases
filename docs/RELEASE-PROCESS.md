@@ -22,8 +22,9 @@ here, where they're world-downloadable and the auto-updater can reach `latest.js
    `src-tauri/Cargo.toml`) and update its `CHANGELOG`.
 2. Tag `vX.Y.Z` and push — the release workflow builds, signs (Apple Developer ID),
    and notarizes a universal macOS build.
-3. The artifacts are published as a Release **in this repo** (`vX.Y.Z`):
-   `*.dmg`, `*.app.tar.gz`, `*.app.tar.gz.sig`, `latest.json`.
+3. The CI publishes the artifacts as a **draft** Release **in this repo** (`vX.Y.Z`):
+   `*.dmg`, `*.app.tar.gz`, `*.app.tar.gz.sig`, `latest.json` (cross-repo publish —
+   see below).
 4. Add this repo's `CHANGELOG.md` entry for `vX.Y.Z` (mirror the release notes) and
    fill the release body from [`.github/release-notes-template.md`](../.github/release-notes-template.md).
 5. Publish the release. `.../releases/latest` now points at it, so the download link
@@ -39,10 +40,15 @@ here, where they're world-downloadable and the auto-updater can reach `latest.js
 - `latest.json`'s asset URLs must point at **this** repo's assets (not the private
   repo), or the updater download 404s.
 
-## Cross-repo publishing (setup note)
+## Cross-repo publishing (automated)
 
-Publishing from the private repo's CI into this public repo requires a token with
-`contents: write` on `term-wright-releases` (a fine-grained PAT or a GitHub App
-installation token), stored as a secret in `term-wright-desktop`. The default
-`GITHUB_TOKEN` cannot write across repositories. Until that token is wired, releases
-can be published here manually with `gh release create`.
+The private repo's CI publishes **directly into this public repo** using
+tauri-action's cross-repo `owner`/`repo` inputs, authenticated with a
+`RELEASES_REPO_TOKEN` secret — a fine-grained PAT scoped to `contents: write` on
+`term-wright-releases` only (the default `GITHUB_TOKEN` can't write across repos).
+tauri-action writes `latest.json` with **this repo's** asset URLs automatically, so
+there is no manual URL rewrite. The release lands here as a **draft**; a human
+finalizes the notes + CHANGELOG entry and publishes.
+
+If the PAT is ever removed, the workflow falls back to drafting in the private repo,
+and releases can be copied here manually with `gh release create`.
